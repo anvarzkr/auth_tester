@@ -7,7 +7,7 @@ export default class AuthApi {
   static signUp(params) {
     console.log('API request: signUp', params);
     return axios({
-      url: url + '/signUp',
+      url: url + '/auth',
       method: 'post',
       // data: params,
       headers: {
@@ -27,7 +27,7 @@ export default class AuthApi {
   static signIn(params) {
     console.log('API request: signIn', params);
     return axios({
-      url: url + '/signIn',
+      url: url + '/auth/sign_in',
       method: 'post',
       // data: params,
       headers: {
@@ -47,7 +47,7 @@ export default class AuthApi {
   static signOut(params) {
     console.log('API request: signOut', params);
     return axios({
-      url: url + '/signOut',
+      url: url + '/auth/sign_out',
       method: 'delete',
       // data: params,
       headers: {
@@ -57,20 +57,25 @@ export default class AuthApi {
     }).then(({ data }) => {
       console.log(data);
 
-      window.deleteCookie('auth_key'); // delete auth_key from cookies
+      window.deleteCookie('access-token');
+      window.deleteCookie('client');
+      window.deleteCookie('uid');
     });
   }
 
   static checkAuth(params) {
     console.log('API request: checkAuth', params);
     return axios({
-      url: url + '/checkAuth',
+      url: url + '/auth/check',
       method: 'get',
-      // data: params,
-      headers: {
+      params: {
         ...params,
         ...AuthApi.getUser()
       }
+      // headers: {
+      //   ...params,
+      //   ...AuthApi.getUser()
+      // }
     }).then(({ data }) => {
       console.log(data);
     });
