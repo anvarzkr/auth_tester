@@ -9,10 +9,10 @@ export default class AuthApi {
     return axios({
       url: url + '/auth',
       method: 'post',
-      // data: params,
-      headers: {
-        ...params
-      }
+      data: params,
+      // headers: {
+      //   ...params
+      // }
     }).then(({ data }) => {
       console.log(data);
 
@@ -29,10 +29,10 @@ export default class AuthApi {
     return axios({
       url: url + '/auth/sign_in',
       method: 'post',
-      // data: params,
-      headers: {
-        ...params
-      }
+      data: params,
+      // headers: {
+      //   ...params
+      // }
     }).then(({ data }) => {
       console.log(data);
 
@@ -51,7 +51,7 @@ export default class AuthApi {
       method: 'delete',
       // data: params,
       headers: {
-        ...params,
+        // ...params,
         ...AuthApi.getUser()
       }
     }).then(({ data }) => {
@@ -69,7 +69,7 @@ export default class AuthApi {
       url: url + '/auth/check',
       method: 'get',
       params: {
-        ...params,
+        // ...params,
         ...AuthApi.getUser()
       }
       // headers: {
