@@ -12,7 +12,7 @@ export default class BlockCheckAuth extends Component {
 
   checkAuth = () => {
     AuthApi.checkAuth({
-      auth_key: window.getCookie('auth_key')
+      ['access-token']: window.getCookie('access-token')
     });
   }
 

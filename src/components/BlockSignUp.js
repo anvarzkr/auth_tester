@@ -22,9 +22,9 @@ export default class BlockSignUp extends Component {
   signUp = () => {
     AuthApi.signUp({
       email: this.state.email,
-      username: this.state.username,
+      // username: this.state.username,
       password: this.state.password,
-      passwordConfirmation: this.state.passwordConfirmation
+      password_confirmation: this.state.passwordConfirmation
     });
   }
 

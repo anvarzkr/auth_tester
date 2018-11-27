@@ -21,7 +21,7 @@ export default class BlockSignOut extends Component {
 
   signOut = () => {
     AuthApi.signOut({
-      auth_key: window.getCookie('auth_key')
+      ['access-token']: window.getCookie('access-token')
     });
   }
 
