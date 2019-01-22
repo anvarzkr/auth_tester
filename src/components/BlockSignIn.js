@@ -26,7 +26,7 @@ export default class BlockSignUp extends Component {
 
   render() {
     return (
-      <div id="block-sign-in" className="block auth-register">
+      <div id="block-auth-sign-in" className="block auth-register">
         <h2 className="uk-h3">Sign In</h2>
         <div className="uk-margin-small">
           <div className="uk-inline">

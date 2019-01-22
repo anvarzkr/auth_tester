@@ -30,7 +30,7 @@ export default class BlockSignUp extends Component {
 
   render() {
     return (
-      <div id="block-sign-up" className="block auth-register">
+      <div id="block-auth-sign-up" className="block auth-register">
         <h2 className="uk-h3">Sign Up</h2>
         <div className="uk-margin-small">
           <div className="uk-inline">

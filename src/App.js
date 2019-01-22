@@ -7,6 +7,13 @@ import BlockSignIn from './components/BlockSignIn';
 import BlockSignOut from './components/BlockSignOut';
 import BlockCheckAuth from './components/BlockCheckAuth';
 
+import BlockUserChats from './components/BlockUserChats';
+import BlockCreateChat from './components/BlockCreateChat';
+import BlockDeleteChat from './components/BlockDeleteChat';
+import BlockInviteUser from './components/BlockInviteUser';
+import BlockSendMessage from './components/BlockSendMessage';
+import BlockChatUsers from './components/BlockChatUsers';
+
 class App extends Component {
 
 
@@ -18,6 +25,32 @@ class App extends Component {
 
         <div className="main">
           <div className="uk-container uk-container-small uk-position-relative">
+
+            <h1 className="uk-heading-divider">Messenger</h1>
+
+            <BlockUserChats />
+
+            <hr className="uk-divider uk-margin-large" />
+
+            <BlockCreateChat />
+
+            <hr className="uk-divider uk-margin-large" />
+
+            <BlockDeleteChat />
+
+            <hr className="uk-divider uk-margin-large" />
+
+            <BlockInviteUser />
+
+            <hr className="uk-divider uk-margin-large" />
+
+            <BlockSendMessage />
+
+            <hr className="uk-divider uk-margin-large" />
+
+            <BlockChatUsers />
+
+
 
             <h1 className="uk-heading-divider">Auth</h1>
 

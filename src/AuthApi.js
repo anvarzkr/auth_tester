@@ -9,17 +9,14 @@ export default class AuthApi {
     return axios({
       url: url + '/auth',
       method: 'post',
-      data: params,
-      // headers: {
-      //   ...params
-      // }
-    }).then(({ data }) => {
-      console.log(data);
+      data: params
+    }).then((response) => {
+      let headers = response.headers;
 
-      if (data['access-token']) {
-        AuthApi.setUser(data);
+      if (headers['access-token']) {
+        AuthApi.setUser(headers);
       } else {
-        console.log('No access-token in signUp response');
+        console.log('No access-token in sign_up response');
       }
     });
   }
@@ -29,17 +26,14 @@ export default class AuthApi {
     return axios({
       url: url + '/auth/sign_in',
       method: 'post',
-      data: params,
-      // headers: {
-      //   ...params
-      // }
-    }).then(({ data }) => {
-      console.log(data);
+      data: params
+    }).then((response) => {
+      let headers = response.headers;
 
-      if (data['access-token']) {
-        AuthApi.setUser(data);
+      if (headers['access-token']) {
+        AuthApi.setUser(headers);
       } else {
-        console.log('No access-token in signIn response');
+        console.log('No access-token in sign_in response');
       }
     });
   }
@@ -49,13 +43,11 @@ export default class AuthApi {
     return axios({
       url: url + '/auth/sign_out',
       method: 'delete',
-      // data: params,
       headers: {
-        // ...params,
         ...AuthApi.getUser()
       }
-    }).then(({ data }) => {
-      console.log(data);
+    }).then((response) => {
+      console.log(response.data);
 
       window.deleteCookie('access-token');
       window.deleteCookie('client');
@@ -63,46 +55,50 @@ export default class AuthApi {
     });
   }
 
-  static checkAuth(params) {
+  static checkAuth(params, callback) {
     console.log('API request: checkAuth', params);
     return axios({
-      url: url + '/auth/check',
+      url: url + '/check_auth',
       method: 'get',
       params: {
-        // ...params,
+        ...AuthApi.getUser()
+      },
+      headers: {
         ...AuthApi.getUser()
       }
-      // headers: {
-      //   ...params,
-      //   ...AuthApi.getUser()
-      // }
-    }).then(({ data }) => {
-      console.log(data);
+    }).then((response) => {
+      let { data, success } = response.data;
+      console.log(response.data);
+
+      if (success && callback)
+        callback();
     });
   }
 
-  static setUser(data) {
+  static setUser(headers) {
     window.setCookie(
       'access-token',
-      data['access-token'],
+      headers['access-token'],
       {
         expires: 60 * 60 // 1 hour
       }
     );
     window.setCookie(
       'client',
-      data['client'],
+      headers['client'],
       {
         expires: 60 * 60 // 1 hour
       }
     );
     window.setCookie(
       'uid',
-      data['uid'],
+      headers['uid'],
       {
         expires: 60 * 60 // 1 hour
       }
     );
+
+    console.log('New user: ', AuthApi.getUser());
   }
 
   static getUser() {

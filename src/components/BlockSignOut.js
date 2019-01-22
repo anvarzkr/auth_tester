@@ -27,7 +27,7 @@ export default class BlockSignOut extends Component {
 
   render() {
     return (
-      <div id="block-sign-out" className="block auth-register">
+      <div id="block-auth-sign-out" className="block auth-register">
         <h2 className="uk-h3">Sign Out</h2>
         <button className="uk-button uk-button-danger" onClick={this.signOut}>Sign Out</button>
       </div>
