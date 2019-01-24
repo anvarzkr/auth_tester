@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import MessengerApi from '../MessengerApi';
 
-export default class BlockCreateChat extends Component {
+export default class BlockMessenger_CreateChat extends Component {
   constructor() {
     super();
 
     this.state = {
-      email: '',
+      // email: '',
       chatName: ''
     };
   }
@@ -18,9 +18,13 @@ export default class BlockCreateChat extends Component {
   }
 
   createChat = () => {
-    MessengerApi.createChat({
-      email: this.state.email,
-      chatName: this.state.chatName
+    // MessengerApi.createChat({
+    //   email: this.state.email,
+    //   chatName: this.state.chatName
+    // });
+    this.props.ws_createChat({
+      // email: this.state.email,
+      chatName: this.state.chatName,
     });
   }
 
@@ -28,12 +32,6 @@ export default class BlockCreateChat extends Component {
     return (
       <div id="block-messenger-create-chat" className="block">
         <h2 className="uk-h3">Create Chat</h2>
-        <div className="uk-margin-small">
-          <div className="uk-inline">
-            <span className="uk-form-icon" uk-icon="icon: mail"></span>
-            <input className="uk-input" name="email" value={this.state.email} onChange={this.onInputChange} type="text" placeholder="user email" />
-          </div>
-        </div>
         <div className="uk-margin-small">
           <div className="uk-inline">
             <span className="uk-form-icon" uk-icon="icon: mail"></span>

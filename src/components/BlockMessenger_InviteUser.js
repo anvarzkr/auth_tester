@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import MessengerApi from '../MessengerApi';
 
-export default class BlockInviteUser extends Component {
+export default class BlockMessenger_InviteUser extends Component {
   constructor() {
     super();
 
@@ -18,7 +18,11 @@ export default class BlockInviteUser extends Component {
   }
 
   inviteUser = () => {
-    MessengerApi.inviteUser({
+    // MessengerApi.inviteUser({
+    //   email: this.state.email,
+    //   chatId: this.state.chatId
+    // });
+    this.props.ws_inviteUserToChat({
       email: this.state.email,
       chatId: this.state.chatId
     });

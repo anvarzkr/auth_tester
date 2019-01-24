@@ -7,16 +7,35 @@ import BlockSignIn from './components/BlockSignIn';
 import BlockSignOut from './components/BlockSignOut';
 import BlockCheckAuth from './components/BlockCheckAuth';
 
-import BlockUserChats from './components/BlockUserChats';
-import BlockCreateChat from './components/BlockCreateChat';
-import BlockDeleteChat from './components/BlockDeleteChat';
-import BlockInviteUser from './components/BlockInviteUser';
-import BlockSendMessage from './components/BlockSendMessage';
-import BlockChatUsers from './components/BlockChatUsers';
+import BlockMessenger_Login from './components/BlockMessenger_Login';
+import BlockMessenger_UserChats from './components/BlockMessenger_UserChats';
+import BlockMessenger_CreateChat from './components/BlockMessenger_CreateChat';
+import BlockMessenger_DeleteChat from './components/BlockMessenger_DeleteChat';
+import BlockMessenger_InviteUser from './components/BlockMessenger_InviteUser';
+import BlockMessenger_SendMessage from './components/BlockMessenger_SendMessage';
+import BlockMessenger_ChatUsers from './components/BlockMessenger_ChatUsers';
+
+import BlockResponse_Code from './components/BlockResponse_Code';
+
+import {
+  messengerWebsocketInitialize
+} from './MessengerWS';
 
 class App extends Component {
 
+  state = {
+    response_messenger: ''
+  }
 
+  componentWillMount() {
+    this.messengetWS = messengerWebsocketInitialize(this.displayResponse);
+  }
+
+  displayResponse = (type, response) => {
+    this.setState({
+      ['response_' + type]: response
+    });
+  }
 
   render() {
     return (
@@ -28,27 +47,45 @@ class App extends Component {
 
             <h1 className="uk-heading-divider">Messenger</h1>
 
-            <BlockUserChats />
+            <BlockMessenger_Login
+              ws_login={this.messengetWS.login}
+              />
 
             <hr className="uk-divider uk-margin-large" />
 
-            <BlockCreateChat />
+            <BlockMessenger_UserChats
+              ws_getUserChats={this.messengetWS.getUserChats}
+              />
 
             <hr className="uk-divider uk-margin-large" />
 
-            <BlockDeleteChat />
+            <BlockMessenger_CreateChat
+              ws_createChat={this.messengetWS.createChat}
+              />
 
             <hr className="uk-divider uk-margin-large" />
 
-            <BlockInviteUser />
+            <BlockMessenger_DeleteChat
+              ws_deleteChat={this.messengetWS.deleteChat}
+              />
 
             <hr className="uk-divider uk-margin-large" />
 
-            <BlockSendMessage />
+            <BlockMessenger_InviteUser
+              ws_inviteUserToChat={this.messengetWS.inviteUserToChat}
+              />
 
             <hr className="uk-divider uk-margin-large" />
 
-            <BlockChatUsers />
+            <BlockMessenger_SendMessage
+              ws_sendMessage={this.messengetWS.sendMessage}
+              />
+
+            <hr className="uk-divider uk-margin-large" />
+
+            <BlockMessenger_ChatUsers
+              ws_getChatUsers={this.messengetWS.getChatUsers}
+              />
 
 
 

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import MessengerApi from '../MessengerApi';
 
-export default class BlockSendMessage extends Component {
+export default class BlockMessenger_SendMessage extends Component {
   constructor() {
     super();
 
     this.state = {
-      email: '',
+      // email: '',
       chatId: '',
       message: ''
     };
@@ -19,10 +19,15 @@ export default class BlockSendMessage extends Component {
   }
 
   sendMessage = () => {
-    MessengerApi.sendMessage({
-      email: this.state.email,
-      chatId: this.state.chatId,
-      message: this.state.message
+    // MessengerApi.sendMessage({
+    //   email: this.state.email,
+    //   chatId: this.state.chatId,
+    //   message: this.state.message
+    // });
+    this.props.ws_sendMessage({
+      // email: this.state.email,
+      id: this.state.chatId,
+      data: this.state.message
     });
   }
 
@@ -30,12 +35,6 @@ export default class BlockSendMessage extends Component {
     return (
       <div id="block-messenger-send-message" className="block">
         <h2 className="uk-h3">Send Message</h2>
-        <div className="uk-margin-small">
-          <div className="uk-inline">
-            <span className="uk-form-icon" uk-icon="icon: mail"></span>
-            <input className="uk-input" name="email" value={this.state.email} onChange={this.onInputChange} type="text" placeholder="user email" />
-          </div>
-        </div>
         <div className="uk-margin-small">
           <div className="uk-inline">
             <span className="uk-form-icon" uk-icon="icon: mail"></span>
