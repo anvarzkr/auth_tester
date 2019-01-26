@@ -23,8 +23,8 @@ export default class BlockMessenger_InviteUser extends Component {
     //   chatId: this.state.chatId
     // });
     this.props.ws_inviteUserToChat({
-      email: this.state.email,
-      chatId: this.state.chatId
+      users: this.state.email,
+      id: this.state.chatId
     });
   }
 

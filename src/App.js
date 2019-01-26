@@ -61,6 +61,7 @@ class App extends Component {
 
             <BlockMessenger_CreateChat
               ws_createChat={this.messengetWS.createChat}
+              ws_getUserChats={this.messengetWS.getUserChats}
               />
 
             <hr className="uk-divider uk-margin-large" />

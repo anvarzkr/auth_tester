@@ -26,6 +26,9 @@ export default class BlockMessenger_CreateChat extends Component {
       // email: this.state.email,
       chatName: this.state.chatName,
     });
+    this.props.ws_getUserChats({
+      // email: this.state.email,
+    });
   }
 
   render() {

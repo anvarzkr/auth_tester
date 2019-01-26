@@ -21,7 +21,7 @@ export default class BlockMessenger_ChatUsers extends Component {
     //   chatId: this.state.chatId
     // });
     this.props.ws_getChatUsers({
-      chatId: this.state.chatId
+      id: this.state.chatId
     });
   }
 
