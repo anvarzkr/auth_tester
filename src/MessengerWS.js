@@ -2,7 +2,7 @@ let wsConnection;
 
 export function messengerWebsocketInitialize(displayResponse) {
   // let wsUri = 'ws://WEBSOCKET_URI';
-  let wsUri = 'ws://localhost:8800/messenger';
+  let wsUri = 'ws://darqube.io:8880/messenger';
 
   try {
     wsConnection = new WebSocket(wsUri);
