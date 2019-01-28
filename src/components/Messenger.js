@@ -24,14 +24,57 @@ export default class Messenger extends Component {
           { id: '21', user: 'example@mail.ru', time: Date.now() + 1, body: 'Hey from example!' }
         ],
       },
-      activeChatId: '1'
+      activeChatId: '1',
+      chatName: ''
     };
   }
 
   changeActiveChatId = (chatId) => {
     this.setState({
-      activeChatId: chatId
+      activeChatId: chatId,
+      chatName: '',
+      modalType: ''
     });
+  }
+
+  onInputChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
+
+  submitCreateChat = () => {
+    this.props.createChat({
+      chatName: this.state.chatName
+    });
+
+    this.setState({ chatName: '' });
+  }
+
+  closeModal = () => { this.setState({ modalType: '' }); }
+  openModal = (modalType) => { this.setState({ modalType: modalType }); }
+
+  getCurrentModal = () => {
+    switch(this.state.modalType) {
+      case 'createChat':
+        return (
+          <div className="overlay uk-padding-remove">
+            <div>
+              <h2 className="uk-h4">Create Chat</h2>
+              <div className="uk-margin-small">
+                <div className="uk-inline">
+                  <span className="uk-form-icon" uk-icon="icon: tag"></span>
+                  <input className="uk-input" name="chatName" value={this.state.chatName} onChange={this.onInputChange} type="text" placeholder="chat name" />
+                </div>
+              </div>
+              <button className="uk-button uk-button-primary" onClick={this.submitCreateChat}>Submit</button>
+              <button className="uk-button uk-button-secondary" onClick={this.closeModal}>Close</button>
+            </div>
+          </div>
+        );
+      default:
+        return '';
+    }
   }
 
   render() {
@@ -41,12 +84,14 @@ export default class Messenger extends Component {
           chats={this.state.chats}
           activeChatId={this.state.activeChatId}
           changeActiveChatId={this.changeActiveChatId}
+          openModal={this.openModal}
           />
         <MessengerChatView
           messages={this.state.messages[this.state.activeChatId] || []}
           activeChatId={this.state.activeChatId}
           sendMessage={this.props.sendMessage}
           />
+        { this.state.modalType != '' && this.getCurrentModal() }
       </div>
     );
   }
@@ -122,7 +167,7 @@ class MessengerChatViewMessageList extends Component {
     });
 
     return (
-      <div className='messenger_chat-view-message-list'>
+      <div className='messenger_chat-view-message-list' style={{ height: 'calc(100% - 50px)', overflow: 'hidden' }}>
         { messageList }
       </div>
     );
@@ -163,7 +208,12 @@ class MessengerChatList extends Component {
 
     return (
       <div className='messenger_chat-list uk-width-1-3 uk-padding-remove uk-background-muted'>
-        { chatsList }
+        <div style={{ height: 'calc(100% - 40px)', overflow: 'hidden' }}>
+          { chatsList }
+        </div>
+        <button className="uk-button uk-position-bottom uk-width-1-1 uk-button-secondary" onClick={() => this.props.openModal('createChat')}>
+          Create Chat
+        </button>
       </div>
     );
   }

@@ -25,16 +25,26 @@ import {
 class App extends Component {
 
   state = {
-    response_messenger: ''
+    response_messenger: '',
+    userChats: []
   }
 
   componentWillMount() {
-    this.messengetWS = messengerWebsocketInitialize(this.displayResponse);
+    this.messengetWS = messengerWebsocketInitialize({
+      setUserChats: this.setUserChats,
+      displayResponse: this.displayResponse
+    });
   }
 
   displayResponse = (type, response) => {
     this.setState({
       ['response_' + type]: response
+    });
+  }
+
+  setUserChats = (userChats) => {
+    this.setState({
+      userChats: userChats
     });
   }
 
@@ -56,6 +66,7 @@ class App extends Component {
 
             <BlockMessenger_Chat
               sendMessage={this.messengetWS.sendMessage}
+              createChat={this.messengetWS.createChat}
               />
 
             <hr className="uk-divider uk-margin-large" />
@@ -68,6 +79,7 @@ class App extends Component {
 
             <BlockMessenger_CreateChat
               ws_createChat={this.messengetWS.createChat}
+              ws_getUserChats={this.messengetWS.getUserChats}
               />
 
             <hr className="uk-divider uk-margin-large" />

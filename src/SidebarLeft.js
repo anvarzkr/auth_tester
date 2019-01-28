@@ -18,6 +18,7 @@ export default class SidebarLeft extends Component {
           <li><a href="#block-messenger-chat">Chat</a></li>
           <li><a href="#block-messenger-user-chats">User Chats</a></li>
           <li><a href="#block-messenger-create-chat">Create Chat</a></li>
+          <li><a href="#block-messenger-delete-chat">Delete Chat</a></li>
           <li><a href="#block-messenger-invite-user">Invite User</a></li>
           <li><a href="#block-messenger-send-message">Send Message</a></li>
           <li><a href="#block-messenger-chat-users">Chat Users</a></li>

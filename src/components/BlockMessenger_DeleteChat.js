@@ -27,7 +27,7 @@ export default class BlockMessenger_DeleteChat extends Component {
 
   render() {
     return (
-      <div id="block-messenger-create-chat" className="block">
+      <div id="block-messenger-delete-chat" className="block">
         <h2 className="uk-h3">Delete Chat</h2>
         <div className="uk-margin-small">
           <div className="uk-inline">

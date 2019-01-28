@@ -1,8 +1,8 @@
 let wsConnection;
 
-export function messengerWebsocketInitialize(displayResponse) {
+export function messengerWebsocketInitialize(actions) {
   // let wsUri = 'ws://WEBSOCKET_URI';
-  let wsUri = 'wss://echo.websocket.org';
+  let wsUri = 'ws://darqube.io:8880/messenger';
 
   try {
     wsConnection = new WebSocket(wsUri);
@@ -30,15 +30,15 @@ export function messengerWebsocketInitialize(displayResponse) {
     console.log("MessengerWS received data:");
     console.log(evt.data);
 
-    // displayResponse('messenger', JSON.stringify(evt.data, null, ' '));
-    displayResponse('messenger', JSON.stringify(JSON.parse(evt.data)));
+    // actions.displayResponse('messenger', JSON.stringify(evt.data, null, ' '));
+    actions.displayResponse('messenger', JSON.stringify(JSON.parse(evt.data)));
   }
 
   function onError(evt)
   {
     console.log("onErrorMessengerWS");
     console.log(evt);
-    displayResponse('messenger', JSON.stringify(evt));
+    actions.displayResponse('messenger', JSON.stringify(evt));
   }
 
   return new MessengerWS(wsConnection);
@@ -59,21 +59,18 @@ class MessengerWS {
     params = {
       ...params,
       type: 'group',
-      users: {
-        [this.sender]: '1',
-        [this.sender]: '1'
-      }
+      users: [this.sender] + ',' + 'group_user1@mail.ru' + ',' + 'group_user2@mail.ru'
     }
 
-    this.send('create_chat', params);
+    this.send('create_group_chat', params);
   }
 
   inviteUserToChat = (params) => {
-    this.send('inviteUserToChat', params);
+    this.send('add_users_to_chat', params);
   }
 
   getUserChats = (params) => {
-    this.send('getUserChats', params);
+    this.send('get_user_chats', params);
   }
 
   deleteChat = (params) => {
@@ -89,16 +86,16 @@ class MessengerWS {
   }
 
   getChatUsers = (params) => {
-    this.send('getChatUsers', params);
+    this.send('get_chat_users', params);
   }
 
   send = (type, params, sender) => {
     // console.log('WS send:', type, params, sender);
-    const message = JSON.stringify(JSON.stringify({
+    const message = JSON.stringify({
       action: type,
       sender: sender || this.sender || '',
       body: params || {}
-    }));
+    });
     console.log('Sending message:')
     console.log(message);
     this.connection.send(message);

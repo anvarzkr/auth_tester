@@ -19,7 +19,9 @@ export default class BlockMessenger_Chat extends Component {
         <h2 className="uk-h3">Chat</h2>
         <div className="uk-margin-small">
           <Messenger
-            sendMessage={this.props.sendMessage}/>
+            sendMessage={this.props.sendMessage}
+            createChat={this.props.createChat}
+            />
         </div>
       </div>
     );
