@@ -14,6 +14,7 @@ import BlockMessenger_DeleteChat from './components/BlockMessenger_DeleteChat';
 import BlockMessenger_InviteUser from './components/BlockMessenger_InviteUser';
 import BlockMessenger_SendMessage from './components/BlockMessenger_SendMessage';
 import BlockMessenger_ChatUsers from './components/BlockMessenger_ChatUsers';
+import BlockMessenger_Chat from './components/BlockMessenger_Chat';
 
 import BlockResponse_Code from './components/BlockResponse_Code';
 
@@ -49,6 +50,12 @@ class App extends Component {
 
             <BlockMessenger_Login
               ws_login={this.messengetWS.login}
+              />
+
+            <hr className="uk-divider uk-margin-large" />
+
+            <BlockMessenger_Chat
+              sendMessage={this.messengetWS.sendMessage}
               />
 
             <hr className="uk-divider uk-margin-large" />

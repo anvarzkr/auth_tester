@@ -55,8 +55,60 @@ h1.uk-heading-divider {
 
 
 .uk-nav .uk-nav-header {
-    padding: 8px 0;
-    border-bottom: 1px solid #e5e5e5;
+  padding: 8px 0;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.messenger_chat {
+  height: 400px;
+  overflow: hidden;
+}
+
+.messenger_chat-list,
+.messenger_chat-view {
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.messenger_chat-list {
+  border: 1px solid #e0e0e0;
+  border-right: 0;
+}
+
+.messenger_chat-list-item {
+  padding: 5px 2px;
+  border-bottom: 1px solid #e8e8e8;
+}
+.messenger_chat-list-item.active {
+  background: #e8e8e8;
+}
+.messenger_chat-list-item:hover {
+  background: #e8e8e8;
+  cursor: pointer;
+}
+
+.messenger_chat-view-message-list {
+  padding: 10px;
+}
+.messenger_chat-view-message-list-item.own {
+  text-align: right;
+}
+.messenger_chat-view-message-list-item .body {
+  display: inline-block;
+  max-width: 50%;
+  background-color: #424242;
+  padding: 5px 10px;
+  border-radius: 3px;
+  color: #ccc;
+  font-size: 0.9em;
+}
+.messenger_chat-view-message-list-item.own .body {
+  background-color: #666;
+}
+.messenger_chat-view-message-list-item .date {
+  font-size: 0.7em;
+  margin-top: 2px;
 }
 
 @media (min-width: 1200px) {

@@ -14,6 +14,8 @@ export default class SidebarLeft extends Component {
       <div className="sidebar-left">
         <ul className="uk-nav uk-nav-default">
         <li className="uk-nav-header">Messenger</li>
+          <li><a href="#block-messenger-login">Login</a></li>
+          <li><a href="#block-messenger-chat">Chat</a></li>
           <li><a href="#block-messenger-user-chats">User Chats</a></li>
           <li><a href="#block-messenger-create-chat">Create Chat</a></li>
           <li><a href="#block-messenger-invite-user">Invite User</a></li>

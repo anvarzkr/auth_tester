@@ -25,7 +25,7 @@ export default class BlockMessenger_UserChats extends Component {
 
   render() {
     return (
-      <div id="block-messenger-user-chats" className="block">
+      <div id="block-messenger-login" className="block">
         <h2 className="uk-h3">Login</h2>
         <div className="uk-margin-small">
           <div className="uk-inline">
