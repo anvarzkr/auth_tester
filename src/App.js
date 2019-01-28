@@ -26,13 +26,18 @@ class App extends Component {
 
   state = {
     response_messenger: '',
-    userChats: []
+    userChats: [],
+    chatMessages: {},
+    userEmail: ''
   }
 
   componentWillMount() {
     this.messengetWS = messengerWebsocketInitialize({
       setUserChats: this.setUserChats,
-      displayResponse: this.displayResponse
+      displayResponse: this.displayResponse,
+      setUserChats: this.setUserChats,
+      addChatMessage: this.addChatMessage,
+      addUserChat: this.addUserChat
     });
   }
 
@@ -42,9 +47,36 @@ class App extends Component {
     });
   }
 
-  setUserChats = (userChats) => {
+  setUserChats = (userChats, chatMessages, userEmail) => {
     this.setState({
-      userChats: userChats
+      userChats: userChats,
+      chatMessages: chatMessages,
+      userEmail: userEmail
+    });
+  }
+
+  addChatMessage = (chatId, message) => {
+    this.setState({
+      chatMessages: {
+        ...this.state.chatMessages,
+        [chatId]: [
+          ...this.state.chatMessages[chatId],
+          message
+        ]
+      }
+    });
+  }
+
+  addUserChat = (userChat) => {
+    this.setState({
+      userChats: [
+        ...this.state.userChats,
+        userChat
+      ],
+      chatMessages: {
+        ...this.state.chatMessages,
+        [userChat.id]: []
+      }
     });
   }
 
@@ -67,6 +99,9 @@ class App extends Component {
             <BlockMessenger_Chat
               sendMessage={this.messengetWS.sendMessage}
               createChat={this.messengetWS.createChat}
+              userChats={this.state.userChats}
+              chatMessages={this.state.chatMessages}
+              userEmail={this.state.userEmail}
               />
 
             <hr className="uk-divider uk-margin-large" />

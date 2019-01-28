@@ -15,6 +15,8 @@ export function messengerWebsocketInitialize(actions) {
   wsConnection.onmessage = function(evt) { onMessage(evt) };
   wsConnection.onerror = function(evt) { onError(evt) };
 
+  let messengerWS = new MessengerWS(wsConnection);
+
   function onOpen(evt)
   {
     console.log("onOpenMessengerWS");
@@ -28,27 +30,83 @@ export function messengerWebsocketInitialize(actions) {
   function onMessage(evt)
   {
     console.log("MessengerWS received data:");
-    console.log(evt.data);
+    let data = JSON.parse(evt.data);
+    console.log(data);
+    performAction(data);
 
     // actions.displayResponse('messenger', JSON.stringify(evt.data, null, ' '));
-    actions.displayResponse('messenger', JSON.stringify(JSON.parse(evt.data)));
+    // actions.displayResponse('messenger', JSON.stringify(JSON.parse(evt.data)));
   }
 
   function onError(evt)
   {
     console.log("onErrorMessengerWS");
     console.log(evt);
-    actions.displayResponse('messenger', JSON.stringify(evt));
+    // actions.displayResponse('messenger', JSON.stringify(evt));
   }
 
-  return new MessengerWS(wsConnection);
+  function performAction(data) {
+    switch(data.type) {
+      case "get_user_chats":
+        let userChatIds = Object.keys(data.data);
+        let userChats = [];
+        let chatMessages = {};
+
+        for (var index in userChatIds) {
+          let currentUserChat = data.data[userChatIds[index]];
+          chatMessages[currentUserChat._id] = [];
+          for (var messageIndex in currentUserChat.messages) {
+            let currentMessage = currentUserChat.messages[messageIndex];
+            chatMessages[currentUserChat._id].push({
+              id: Math.random(),
+              user: currentMessage.sender,
+              time: currentMessage.time,
+              body: currentMessage.content.data
+            });
+          }
+
+          userChats.push({
+            id: currentUserChat._id,
+            title: currentUserChat.name
+          })
+        }
+        actions.setUserChats(userChats, chatMessages, messengerWS.sender);
+        break;
+      case "new_message":
+        let chatId = data.id;
+        let message = data["$push"].messages;
+        let parsedMessage = {
+          id: Math.random(),
+          user: message.sender,
+          time: message.time,
+          body: message.content.data
+        }
+        actions.addChatMessage(chatId, parsedMessage);
+        break;
+      case "create_group_chat":
+        let chat = data.data;
+        let parsedChat = {
+          id: chat._id,
+          title: chat.name
+        };
+        actions.addUserChat(parsedChat);
+        break;
+      default:
+        console.log("Response action is not found");
+    }
+  }
+
+  return messengerWS;
 }
 
 class MessengerWS {
 
   constructor(connection) {
     this.connection = connection;
+    this.sender = '';
   }
+
+  getUserEmail = () => { return this.sender; }
 
   login = (params, email) => {
     this.send('login', params, email);

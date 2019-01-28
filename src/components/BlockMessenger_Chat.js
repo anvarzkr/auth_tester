@@ -21,6 +21,9 @@ export default class BlockMessenger_Chat extends Component {
           <Messenger
             sendMessage={this.props.sendMessage}
             createChat={this.props.createChat}
+            chats={this.props.userChats}
+            messages={this.props.chatMessages}
+            userEmail={this.props.userEmail}
             />
         </div>
       </div>
